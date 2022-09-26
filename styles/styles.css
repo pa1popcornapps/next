@@ -1,0 +1,128 @@
+.App {
+    background-color: aqua;
+    width: 100%;
+  }
+  
+  .App-header .header {
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+  }
+  
+  .App-header .col:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: blueviolet;
+    font-size: 18px
+  }
+  
+  .App-header .col:nth-child(2) {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px
+  }
+  
+  .App-header .col:nth-child(2) button {
+    padding: 0px 7px 0px 7px;
+    font-weight: bold;
+    color: blueviolet;
+    font-size: 18px;
+    border: 2px solid blueviolet;
+    border-radius: 7px;
+    margin-top: -15px;
+  }
+  
+  .App-header .col:nth-child(2) button:nth-child(1) {
+    margin-right: 35px
+  }
+  
+  .body {
+    overflow: hidden;
+    display: flex;height:100vh;padding:15px;
+  }
+  
+  .body .column:nth-child(1) {
+    padding: 15px;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .side-bar .list-items {
+    list-style: none;
+  }
+  
+  li Link {
+    color: blue;
+    font-size: 16px;
+  }
+  
+  li Link:hover {
+    color: rgb(233, 76, 115);
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .about p {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center
+  }
+  
+  .contact p {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center
+  }
+  
+  .state p {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center
+  }
+  
+  .prop p {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center
+  }
+  
+  .footer {
+    padding: 15px;
+    background-color: aqua;
+  
+  }
+  
+  .footer ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .constructor,
+  .parent-view,
+  .child-view,
+  .state,
+  .prop-validation,
+  .set-state,
+  .force-update,
+  .find-dom,
+  .class-hooks,
+  .use-context,
+  .use-effect,
+  .use-state,
+  .use-callback,
+  .use-debug,
+  .use-imperative,
+  .use-layout,
+  .use-memo,
+  .use-reducer,
+  .use-ref{
+    background-color: rgb(18, 148, 223);
+    border-radius: 7px;
+    width: 100%;
+    padding: 25px
+  }
