@@ -1,38 +1,77 @@
 import Link from 'next/link'
-import About from '../component/about'
-import Contact from '../component/contact'
-import { useRouter } from 'next/router'
 function SideBar() {
-    const router = useRouter()
     return (
         <div className="side-bar">
-                <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
-                    Documentation
-                </button>
-                <div className="offcanvas offcanvas-start" id="demo">
-                    <div className="offcanvas-body">
-                        <div className="offcanvas-header row justify-content-end">
-                            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-                        </div>
-                        <nav>
-                            <h3 className="text-center">React Side Bar With Router Concept</h3>
-                            <div>
-                                <ul className="list-items">
-                                    <li data-bs-toggle="offcanvas" data-bs-target="#demo">
-                                        <p onClick={() => router.push('/component/about')}>About</p>
-                                    </li>
-                                    <li data-bs-toggle="offcanvas" data-bs-target="#demo">
-                                        <p onClick={() => router.push('/component/contact')}>Contact</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+            <button className="btn btn-primary doc-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                Documentation
+            </button>
+            <div className="offcanvas offcanvas-start" id="demo">
+                <div className="offcanvas-body">
+                    <div className="offcanvas-header row justify-content-end">
+                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
                     </div>
+                    <nav>
+                        <h5 className="text-center">Next Js Side Bar With Link Concept</h5>
+                        <div>
+                            <ul>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="/">
+                                        <a>Home</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/about">
+                                        <a>About Next Js</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/contact">
+                                        <a>Contact</a>
+                                    </Link>
+                                </li>
+                                <h5>Types Of Rendering</h5>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/pre-load/client-side">
+                                        <a>Client Side Rendering</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/pre-load/server-side">
+                                        <a>Server Side Rendering</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/pre-load/pre-load">
+                                        <a>Pre Rendering</a>
+                                    </Link>
+                                </li>
+                                <h5>Get Methods</h5>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/get-methods/methods">
+                                        <a>Get Methods Description</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/get-methods/get-static">
+                                        <a>Get Static Method</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/get-methods/get-paths">
+                                        <a>Get Static Path Method</a>
+                                    </Link>
+                                </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/get-methods/get-server">
+                                        <a>Get Server Side Method</a>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
-                <div className="content-section p-5">
-            
-                </div>
+            </div>
         </div>
     )
-  }
-  export default SideBar;
+}
+export default SideBar;
