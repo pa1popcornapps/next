@@ -13,9 +13,11 @@ function GetServer({ data }) {
                     <ul>
                         {data.map(avatar => {
                             return (
+                                <div className="">
                                 <li key={avatar.id}>
                                     <p><a href="">{avatar.name}</a></p>
                                 </li>
+                               </div>
                             )
                         })}
                     </ul>

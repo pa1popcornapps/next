@@ -45,6 +45,12 @@ function SideBar() {
                                         <a>Pre Rendering</a>
                                     </Link>
                                 </li>
+                                <h5>Routing</h5>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/routings/routings">
+                                        <a>Parameterized Routing</a>
+                                    </Link>
+                                </li>
                                 <h5>Get Methods</h5>
                                 <li data-bs-toggle="offcanvas" data-bs-target="#demo">
                                     <Link href="./component/documentation/get-methods/methods">
