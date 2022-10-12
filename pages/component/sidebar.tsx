@@ -72,6 +72,11 @@ function SideBar() {
                                         <a>Get Server Side Method</a>
                                     </Link>
                                 </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/strapi/getCall">
+                                        <a>Strapi Api Get</a>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </nav>
