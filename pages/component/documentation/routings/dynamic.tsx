@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Header from "../../header";
-function GetPaths({colors}) {
+function Dynamic({flows}) {
     return (
         <div>
             <Header />
@@ -13,9 +13,9 @@ function GetPaths({colors}) {
                     <a href="https://welearncode.com/beginners-guide-nextjs/">For Description</a>
                 </Link>
                 <div className="color-box">
-                    {colors.map(color => (
-                        <Link href={`/${color.name}`}>
-                            <h5><a href="">{color.name}</a></h5>
+                    {flows.map(flow=> (
+                        <Link href={`/${flow.name}`}>
+                            <h5><a href="">{flow.name}</a></h5>
                         </Link>
                     ))}
                 </div>
@@ -23,12 +23,12 @@ function GetPaths({colors}) {
         </div>
     )
 }
-export default GetPaths;
+export default Dynamic;
 export async function getServerSideProps({ context }) {
 
     // Fetch data from external API
-    const colors= await fetch(`https://api-generator.retool.com/n63yab/data`).then(res => res.json())
+    const flows= await fetch(`https://api-generator.retool.com/n63yab/data`).then(res => res.json())
 
     // Returning the fetched data
-    return { props: { colors } }
+    return { props: { flows } }
 }

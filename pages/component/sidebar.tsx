@@ -51,6 +51,11 @@ function SideBar() {
                                         <a>Parameterized Routing</a>
                                     </Link>
                                 </li>
+                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                    <Link href="./component/documentation/routings/dynamic">
+                                        <a>Dynamic Routing</a>
+                                    </Link>
+                                </li>
                                 <h5>Get Methods</h5>
                                 <li data-bs-toggle="offcanvas" data-bs-target="#demo">
                                     <Link href="./component/documentation/get-methods/methods">
