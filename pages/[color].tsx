@@ -1,6 +1,6 @@
 
 export default function Color({ color }) {
-    return <div className='color-page' style={{ backgroundColor: color.hex }}>
+    return <div className='color-page' style={{ backgroundColor: "red"}}>
       <h1>{color.name}</h1>
     </div>
   }
