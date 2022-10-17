@@ -137,3 +137,12 @@
   .server-side{
     padding-top:45px;
   }
+  .flex-ul{
+    display: flex;padding:7px
+  }
+  .nav-list{
+    background-color: brown;border-radius:7px
+  }
+  .action-tr button{
+    color:black
+  }
