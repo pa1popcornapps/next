@@ -13,10 +13,19 @@ function EmployeeList({ data }) {
             }
         }
     }*/
-    
+    const [posts, setPosts] = useState([]);
+
+    const handleFetchPosts = async () => {
+        const postsResponse = await fetch("https://api-generator.retool.com/eK34lw/data");
+        const postsData = await postsResponse.json();
+        setPosts(postsData);
+    };
     return (
         <div>
+         
             <h2 className='topnav'>Rendered By Next JS | Server side rendered</h2>
+
+
             <table className="table">
                 <thead>
                     <th>Id</th>
@@ -33,12 +42,17 @@ function EmployeeList({ data }) {
                             <tr >
                                 <td>{e.id}</td>
                                 <td>{e.userId}</td>
-                                <td>{e.name}</td>
+                                <td>{e.name}
+                                </td>
                                 <td>{e.date}</td>
                                 <td>{e.location}</td>
                                 <td>{e.salary}</td>
                                 <td>
-                                    <button className="btn btn-success">Edit</button>
+                                    <button className="btn btn-success">
+                                    <Link href={`/component/documentation/crud-api/${e.name}`}>
+                                        Edit
+                                    </Link>
+                                    </button>
                                     <button className="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
