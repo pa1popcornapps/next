@@ -10,32 +10,19 @@ function EmployeeList({ flows }) {
                 </Link>
                 <h5 className="text-center">Dynamic Routing</h5>
                 <a href="https://welearncode.com/beginners-guide-nextjs/">For Description</a>
-                <table className="table">
-                    <thead>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>User Id</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
+                {flows.map(flow => (
+                    <div className="color-box">
+                        <p>
+                            <Link href={`/component/documentation/crud-api/${flow.name}`}>
+                                <a className="pr-5">{flow.name}</a>
+                            </Link>
+                            <Link href={`/component/documentation/crud-api/${flow.name}`}>
+                                <a className="pl-5">{flow.age}</a>
+                            </Link>
+                        </p>
 
-                        {flows.map(flow => (
-                            <tr>
-                                <td>{flow.id}</td>
-                                <td>{flow.name}</td>
-                                <td>{flow.userId}</td>
-                                <td>{flow.date}</td>
-                                <td>
-                                    <Link href={`/component/documentation/crud-api/${flow.name}`}>
-                                        <h5><a >Edit</a></h5>
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-
-                    </tbody>
-                </table>
+                    </div>
+                ))}
             </div>
         </div>
     )
@@ -44,7 +31,7 @@ export default EmployeeList;
 export async function getServerSideProps({ context }) {
 
     // Fetch data from external API
-    const flows = await fetch(`https://api-generator.retool.com/4dcBri/data`).then(res => res.json())
+    const flows = await fetch(`https://api-generator.retool.com/QqdBas/data`).then(res => res.json())
 
     // Returning the fetched data
     return { props: { flows } }
