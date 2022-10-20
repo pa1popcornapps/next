@@ -1,76 +1,51 @@
 import Link from "next/link";
-import { useState } from 'react';
-import axios from "axios";
-function EmployeeList({ data }) {
-    /*for (let key in data){
-        console.log(data)
-        for(let i=0;i<data[key].length;i++){
-            if(data[key]!==undefined){
-                console.log(data[key][i].id)
-                console.log(data[key][i].attributes.name)
-            }else{
-
-            }
-        }
-    }*/
-    const [posts, setPosts] = useState([]);
-
-    const handleFetchPosts = async () => {
-        const postsResponse = await fetch("https://api-generator.retool.com/eK34lw/data");
-        const postsData = await postsResponse.json();
-        setPosts(postsData);
-    };
+import Header from "../../header";
+function EmployeeList({ flows }) {
     return (
         <div>
-         
-            <h2 className='topnav'>Rendered By Next JS | Server side rendered</h2>
+            <Header />
+            <div className="container main-container">
+                <Link href="/">
+                    <a>Back To Home</a>
+                </Link>
+                <h5 className="text-center">Dynamic Routing</h5>
+                <a href="https://welearncode.com/beginners-guide-nextjs/">For Description</a>
+                <table className="table">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>User Id</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
 
-
-            <table className="table">
-                <thead>
-                    <th>Id</th>
-                    <th>User Id</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Location</th>
-                    <th>Salary</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    {data.map(e => {
-                        return (
-                            <tr >
-                                <td>{e.id}</td>
-                                <td>{e.userId}</td>
-                                <td>{e.name}
-                                </td>
-                                <td>{e.date}</td>
-                                <td>{e.location}</td>
-                                <td>{e.salary}</td>
+                        {flows.map(flow => (
+                            <tr>
+                                <td>{flow.id}</td>
+                                <td>{flow.name}</td>
+                                <td>{flow.userId}</td>
+                                <td>{flow.date}</td>
                                 <td>
-                                    <button className="btn btn-success">
-                                    <Link href={`/component/documentation/crud-api/${e.name}`}>
-                                        Edit
+                                    <Link href={`/component/documentation/crud-api/${flow.name}`}>
+                                        <h5><a >Edit</a></h5>
                                     </Link>
-                                    </button>
-                                    <button className="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </div >
+                        ))}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     )
 }
 export default EmployeeList;
-export async function getServerSideProps() {
-    // Fetch data from external API 
-    const data = await fetch(`https://api-generator.retool.com/eK34lw/data`).then(res => res.json())
+export async function getServerSideProps({ context }) {
+
+    // Fetch data from external API
+    const flows = await fetch(`https://api-generator.retool.com/4dcBri/data`).then(res => res.json())
+
     // Returning the fetched data
-    return { props: { data } }
+    return { props: { flows } }
 }
-
-
-
-
