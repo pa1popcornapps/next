@@ -1,14 +1,17 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
-import dynamic from 'next/dynamic';
 
-export default function EmployeeDetails({ flow }) {
+export default function EmployeeDetails({ empData }) {
+  const router = useRouter()
+
   const [state, setState] = useState({
     name: "",
     age: ""
   })
-  const handleSubmission = async () => {
-    const res = await fetch("https://api-generator.retool.com/QqdBas/data", {
-      method: "POST",
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+    const res = await fetch("https://api-generator.retool.com/QqdBas/data/"+empData.id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -16,7 +19,10 @@ export default function EmployeeDetails({ flow }) {
     });
 
     const data = await res.json();
-    console.log(data) // { message: "success" }
+    if(data.id > 0) {
+      console.log(data) // { message: "success" }
+      router.push(`/component/documentation/crud-api/${data.name}`);
+    }
   }
   function handleChange(evt) {
     const value = evt.target.value;
@@ -26,16 +32,17 @@ export default function EmployeeDetails({ flow }) {
     });
   }
   return (
-    <div className="container">
-      <div className='row row-cols-1 color-page' style={{ backgroundColor: "blue" }}>
+    <div className="container p-5">
+      <div className='row row-cols-1 p-2 color-page' style={{ backgroundColor: "blue" }}>
+        <h5>Edit Employee</h5>
         <div className="col-12">
-          <p><h5>Id:- {flow.id}</h5></p>
+          <p><b>Id:- {empData.id}</b></p>
         </div>
         <div className="col-12">
-          <p><h5>Name :- {flow.name}</h5></p>
+          <p><b>Name :- {empData.name}</b></p>
         </div>
         <div className="col-12">
-          <p><h5>Name :- {flow.age}</h5></p>
+          <p><b>Name :- {empData.age}</b></p>
         </div>
         <form>
           <label>
@@ -57,7 +64,7 @@ export default function EmployeeDetails({ flow }) {
             />
           </label>
           <button onClick={handleSubmission}>
-            Hit Route
+            Edit Post
           </button>
         </form>
 
@@ -66,26 +73,27 @@ export default function EmployeeDetails({ flow }) {
   )
 }
 export async function getStaticPaths() {
-  // loop through the colors array
-  const colors = await fetch(`https://api-generator.retool.com/QqdBas/data`).then(res => res.json())
-  const paths = colors.map(flow => ({
-    // return an object with params.color set to the color's name
-    params: { employeeDetails: flow.name }
+  // loop through the employeesData array
+  const employeesData = await fetch(`https://api-generator.retool.com/QqdBas/data`).then(res => res.json())
+  const paths = employeesData.map(empData => ({
+    // return an object with params.empData set to the employeesData's name
+    params: { employeeDetails: empData.name }
   }))
 
   // Paths will look like this:
   // [
-  //   { params: { color: 'Marsala' } },
-  //   { params: { color: 'Illuminating'} }
+  //   { params: { employeeDetails: 'Marsala' } },
+  //   { params: { employeeDetails: 'Illuminating'} }
   //   ...
   // ]
   return { paths, fallback: false }
 }
 
 export async function getStaticProps({ params }) {
-  // find the info for just one color
-  const flows = await fetch(`https://api-generator.retool.com/QqdBas/data`).then(res => res.json())
-  const flow = flows.find(flow => flow.name === params.employeeDetails)
+  // find the info for just one empData
+  const employeesData = await fetch(`https://api-generator.retool.com/QqdBas/data`).then(res => res.json())
+  const empData = employeesData.find(empData => empData.name === params.employeeDetails)
   // return it in the necessary format.
-  return { props: { flow } }
+  return { props: { empData } }
+
 }

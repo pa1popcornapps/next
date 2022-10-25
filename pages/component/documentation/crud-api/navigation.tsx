@@ -9,9 +9,6 @@ function About() {
       <Link href="employeeList">
         <a>Employee List</a>
       </Link>
-      <Link href="editEmployee">
-        <a>Employee Details</a>
-      </Link>
       </div>
     </div>
   )
