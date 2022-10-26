@@ -136,7 +136,7 @@ function SideBar() {
                                 </div>
                                 <div className="accordion-item">
                                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                       <h5>To Do Api</h5>
+                                       <h5>Employee List Api</h5>
                                     </button>
                                     <div id="collapseSix" className="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
@@ -144,6 +144,22 @@ function SideBar() {
                                                 <li data-bs-toggle="offcanvas" data-bs-target="#demo">
                                                     <Link href="./component/documentation/crud-api/navigation">
                                                         <a>Navigation</a>
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="accordion-item">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                       <h5>Atm Project</h5>
+                                    </button>
+                                    <div id="collapseSeven" className="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            <ul>
+                                                <li data-bs-toggle="offcanvas" data-bs-target="#demo">
+                                                    <Link href="./component/documentation/atm-project/empList">
+                                                        <a>Atm Project</a>
                                                     </Link>
                                                 </li>
                                             </ul>

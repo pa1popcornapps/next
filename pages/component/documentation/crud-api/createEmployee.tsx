@@ -15,7 +15,6 @@ export default function EmployeeDetails() {
       },
       body: JSON.stringify(state)
     });
-
     const data = await res.json();
     router.push(`/component/documentation/crud-api/employeeList`);
   }
