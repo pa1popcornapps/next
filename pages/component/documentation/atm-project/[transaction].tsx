@@ -16,28 +16,33 @@ export default function EmployeeDetails({ empData }) {
         accountNo: "",
 
     })
-    const initial=0
-    const [balance, setBalance] = useState()
-    const [deposit, setDeposit] = useState(initial)
-    const [withdraw, setWithdraw] = useState(initial)
-
+    const initial=empData.balance
+    const [balance, setBalance] = useState(initial)
+    const [deposit, setDeposit] = useState()
+    const [withdraw, setWithdraw] = useState()
     const handleSubmission = async (e) => {
         e.preventDefault();
+        const datas = {
+            age: empData.age, date: state.date, name: empData.name,
+            mobile: empData.mobile, userId: empData.userId, balance: balance, deposit: deposit,
+            location: state.location, withdraw: withdraw, accountNo: empData.accountNo
+        }
         const res = await fetch("https://api-generator.retool.com/4dcBri/data", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(state)
+            body: JSON.stringify(datas)
         });
 
         const data = await res.json();
         if (data.id > 0) {
             console.log(data) // { message: "success" }
-            router.push(`/component/documentation/atm-project/${data.name}`);
+            router.push(`/component/documentation/atm-project/empList`);
         }
     }
-    function handleChange(evt) {
+    const handleChange=(evt)=> {
+        evt.persist();
         const value = evt.target.value;
         setState({
             ...state,
@@ -45,21 +50,20 @@ export default function EmployeeDetails({ empData }) {
         });
     }
 
-    function handleWithdraw(evt) {
+    const handleWithdraw=(evt)=> {
+        evt.persist();
         const value = evt.target.value;
-        setWithdraw(value);
-        const b = Number(empData.balance) - Number(withdraw)
-        console.log( Number(empData.balance)-Number(withdraw))
+        const b = Number(empData.balance) - Number(value)
         setBalance(b)
-
+        setWithdraw(value)
     }
 
-    function handleDeposit(evt) {
+    const handleDeposit=(evt)=> {
+        evt.persist();
         const value = evt.target.value;
-        setDeposit(value);
-        const b = Number(empData.balance) + Number(deposit)
-        console.log(Number(empData.balance) + Number(deposit))
+        const b = Number(empData.balance) + Number(value)
         setBalance(b)
+        setDeposit(value)
     }
     return (
         <div className="container p-5">
@@ -117,6 +121,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="withdraw"
+                            value={state.withdraw}
                             onChange={handleWithdraw}
                         />
                     </label>
@@ -125,6 +130,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="deposit"
+                            value={state.deposit}
                             onChange={handleDeposit}
                         />
                     </label>
