@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function EmployeeDetails({ empData }) {
     const router = useRouter()
+    const [dupdata, setDup] = useState([])
 
     const [state, setState] = useState({
         name: "",
@@ -16,10 +17,34 @@ export default function EmployeeDetails({ empData }) {
         accountNo: "",
 
     })
-    const initial=empData.balance
+    const initial = empData.balance
     const [balance, setBalance] = useState(initial)
     const [deposit, setDeposit] = useState()
     const [withdraw, setWithdraw] = useState()
+    const [news, setNews] = useState()
+    const getList = () => {
+        return fetch('https://api-generator.retool.com/4dcBri/data')
+            .then(data => data.json())
+    }
+
+    useEffect(() => {
+        getList()
+            .then(items => {
+                    setDup(items)
+            })
+            const arr=[];
+            for(let i=0;i<dupdata.length;i++){
+                if(empData.accountNo===dupdata[i].accountNo){
+                    arr.push(dupdata[i])
+                }
+            }
+            const vals=arr[(arr.length-1)]
+            setNews(vals)
+    },[])
+     
+   
+ 
+    console.log(news)
     const handleSubmission = async (e) => {
         e.preventDefault();
         const datas = {
@@ -36,12 +61,11 @@ export default function EmployeeDetails({ empData }) {
         });
 
         const data = await res.json();
-        if (data.id > 0) {
-            console.log(data) // { message: "success" }
+        if (data.id > 0) { // { message: "success" }
             router.push(`/component/documentation/atm-project/empList`);
         }
     }
-    const handleChange=(evt)=> {
+    const handleChange = (evt) => {
         evt.persist();
         const value = evt.target.value;
         setState({
@@ -49,16 +73,14 @@ export default function EmployeeDetails({ empData }) {
             [evt.target.name]: value
         });
     }
-
-    const handleWithdraw=(evt)=> {
+    const handleWithdraw = (evt) => {
         evt.persist();
         const value = evt.target.value;
         const b = Number(empData.balance) - Number(value)
         setBalance(b)
         setWithdraw(value)
     }
-
-    const handleDeposit=(evt)=> {
+    const handleDeposit = (evt) => {
         evt.persist();
         const value = evt.target.value;
         const b = Number(empData.balance) + Number(value)

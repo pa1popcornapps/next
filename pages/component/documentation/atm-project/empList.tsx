@@ -18,20 +18,20 @@ function EmpList({ flows }) {
     }
     function handleChange(event) {
         event.preventDefault()
-        let l=String(event.target.value);
-        let arr=[]
-            for(let key in flows){
-                let x=String(flows[key].accountNo)
-                arr.push(x.substring(0,l.length))
+        let l = String(event.target.value);
+        let arr = []
+        for (let key in flows) {
+            let x = String(flows[key].accountNo)
+            arr.push(x.substring(0, l.length))
+        }
+        let main = []
+        for (let i = 0; i < arr.length; i++) {
+            if (l === arr[i]) {
+                main.push(flows[i])
             }
-            let main=[]
-            for(let i=0;i<arr.length;i++){
-                if(l===arr[i]){
-                   main.push(flows[i])
-                }
-            }
-            setData(main);   
-      }
+        }
+        setData(main);
+    }
     return (
         <div>
             <div className="container main-container">
@@ -40,21 +40,23 @@ function EmpList({ flows }) {
                 </Link>
                 <h5 className="text-center">Dynamic Routing</h5>
                 <Link href="/component/documentation/atm-project/createEmp">
-                <button className="btn btn-primary">Create Employee</button>
+                    <button className="btn btn-primary">Create Employee</button>
                 </Link>
                 <input name="firstName" onChange={handleChange} />
                 <table className="table">
                     <thead>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Account No</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Action</th>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Account No</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {data.map(flow => (
-                            <tr>
+                            <tr key={flow.id}>
                                 <td>
                                     <b className="pr-5">{flow.name}</b>
                                 </td>
