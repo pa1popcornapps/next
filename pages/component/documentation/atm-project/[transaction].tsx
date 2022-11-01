@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 export default function EmployeeDetails({ empData }) {
+    const initial = empData.balance
+    const intg = ""
     const router = useRouter()
-    const [dupdata, setDup] = useState([])
+    const [mainList, setMainList] = useState([])
 
     const [state, setState] = useState({
         name: "",
@@ -17,34 +19,33 @@ export default function EmployeeDetails({ empData }) {
         accountNo: "",
 
     })
-    const initial = empData.balance
     const [balance, setBalance] = useState(initial)
-    const [deposit, setDeposit] = useState()
-    const [withdraw, setWithdraw] = useState()
-    const [news, setNews] = useState()
+    const [deposit, setDeposit] = useState(intg)
+    const [withdraw, setWithdraw] = useState(intg)
+    const [reqList, setReqList] = useState()
     const getList = () => {
-        return fetch('https://api-generator.retool.com/4dcBri/data')
-            .then(data => data.json())
+        return axios.get(`https://api-generator.retool.com/4dcBri/data`)
+            .then(res => {
+                const persons = res.data;
+                setMainList( persons );
+                console.log(mainList)
+            })
     }
 
     useEffect(() => {
         getList()
-            .then(items => {
-                    setDup(items)
-            })
-            const arr=[];
-            for(let i=0;i<dupdata.length;i++){
-                if(empData.accountNo===dupdata[i].accountNo){
-                    arr.push(dupdata[i])
-                }
+        const arr = [];
+        console.log(empData.accountNo)
+        for (let i = 0; i < mainList.length; i++) {
+            if (empData.accountNo === mainList[i].accountNo) {
+                arr.push(mainList[i])
+                console.log(mainList[i])
             }
-            const vals=arr[(arr.length-1)]
-            setNews(vals)
-    },[])
-     
-   
- 
-    console.log(news)
+        }
+        const vals = arr[(arr.length - 1)]
+        setReqList(vals)
+    }, [])
+
     const handleSubmission = async (e) => {
         e.preventDefault();
         const datas = {
@@ -143,7 +144,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="withdraw"
-                            value={state.withdraw}
+                            value={withdraw}
                             onChange={handleWithdraw}
                         />
                     </label>
@@ -152,7 +153,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="deposit"
-                            value={state.deposit}
+                            value={deposit}
                             onChange={handleDeposit}
                         />
                     </label>
