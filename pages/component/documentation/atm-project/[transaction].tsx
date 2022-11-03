@@ -100,7 +100,7 @@ export default function EmployeeDetails({ empData, employeesData }) {
                     <p><b>Name :- {reqList.name}</b></p>
                 </div>
                 <div className="col-12">
-                    <p><b>Name :- {reqList.age}</b></p>
+                    <p><b>Age :- {reqList.age}</b></p>
                 </div>
                 <form>
                     <label>
