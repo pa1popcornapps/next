@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function EmployeeDetails({ empData }) {
+export default function EmployeeDetails({ empData, employeesData }) {
+    console.log(employeesData)
     const initial = empData.balance
     const intg = ""
     const router = useRouter()
@@ -22,30 +23,29 @@ export default function EmployeeDetails({ empData }) {
     const [balance, setBalance] = useState(initial)
     const [deposit, setDeposit] = useState(intg)
     const [withdraw, setWithdraw] = useState(intg)
-    const [reqList, setReqList] = useState()
-    const getList = () => {
-        return axios.get(`https://api-generator.retool.com/4dcBri/data`)
-            .then(res => {
-                const persons = res.data;
-                setMainList( persons );
-                console.log(mainList)
-            })
-    }
+    const [reqList, setReqList] = useState({
+        id:"",
+        name: "",
+        location: "",
+        date: "",
+        age: "",
+        userId: "",
+        balance: "",
+        deposit: "",
+        withdraw: "",
+        accountNo: "",
 
+    })
+ 
     useEffect(() => {
-        getList()
         const arr = [];
-        console.log(empData.accountNo)
-        for (let i = 0; i < mainList.length; i++) {
-            if (empData.accountNo === mainList[i].accountNo) {
-                arr.push(mainList[i])
-                console.log(mainList[i])
+        for (let i = 0; i < employeesData.length; i++) {
+            if (empData.accountNo === employeesData[i].accountNo) {
+                arr.push(employeesData[i])
             }
         }
-        const vals = arr[(arr.length - 1)]
-        setReqList(vals)
-    }, [])
-
+        setReqList(arr[(arr.length - 1)])
+    }, []);
     const handleSubmission = async (e) => {
         e.preventDefault();
         const datas = {
@@ -77,14 +77,14 @@ export default function EmployeeDetails({ empData }) {
     const handleWithdraw = (evt) => {
         evt.persist();
         const value = evt.target.value;
-        const b = Number(empData.balance) - Number(value)
+        const b = Number(reqList.balance) - Number(value)
         setBalance(b)
         setWithdraw(value)
     }
     const handleDeposit = (evt) => {
         evt.persist();
         const value = evt.target.value;
-        const b = Number(empData.balance) + Number(value)
+        const b = Number(reqList.balance) + Number(value)
         setBalance(b)
         setDeposit(value)
     }
@@ -92,15 +92,15 @@ export default function EmployeeDetails({ empData }) {
         <div className="container p-5">
             <div className='row row-cols-1 p-2 color-page' style={{ backgroundColor: "blue" }}>
                 <h5>Transaction </h5>
-                <h5>Current Balance : {empData.balance}</h5>
+                <h5>Current Balance : {reqList.balance}</h5>
                 <div className="col-12">
-                    <p><b>Id:- {empData.id}</b></p>
+                    <p><b>Id:- {reqList.id}</b></p>
                 </div>
                 <div className="col-12">
-                    <p><b>Name :- {empData.name}</b></p>
+                    <p><b>Name :- {reqList.name}</b></p>
                 </div>
                 <div className="col-12">
-                    <p><b>Name :- {empData.age}</b></p>
+                    <p><b>Name :- {reqList.age}</b></p>
                 </div>
                 <form>
                     <label>
@@ -108,7 +108,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="name"
-                            value={empData.name}
+                            value={reqList.name}
                             onChange={handleChange}
                         />
                     </label>
@@ -117,7 +117,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="age"
-                            value={empData.age}
+                            value={reqList.age}
                             onChange={handleChange}
                         />
                     </label>
@@ -126,7 +126,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="userId"
-                            value={empData.userId}
+                            value={reqList.userId}
                             onChange={handleChange}
                         />
                     </label>
@@ -135,7 +135,7 @@ export default function EmployeeDetails({ empData }) {
                         <input
                             type="text"
                             name="balance"
-                            value={balance}
+                            value={reqList.balance}
                             onChange={handleChange}
                         />
                     </label>
@@ -206,6 +206,6 @@ export async function getStaticProps({ params }) {
     const employeesData = await fetch(`https://api-generator.retool.com/4dcBri/data`).then(res => res.json())
     const empData = employeesData.find(empData => empData.name === params.transaction)
     // return it in the necessary format.
-    return { props: { empData } }
+    return { props: { empData, employeesData } }
 
 }
